@@ -1,0 +1,138 @@
+﻿@model OSSP.Models.users
+
+@{
+    ViewData["Title"] = "Message";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<!--LINK CSS -->
+<link rel="stylesheet" href="~/css/style.css">
+
+
+<!-- ======= Navbar Section ======= -->
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-success">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src="~/images/sb-logos.png" alt="Logo" style="width:70px; height:70px;"> BRGY PORTAL</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="~/Home/Index"><i class="fa-solid fa-house"></i> HOME</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="~/Home/Register"><i class="fa-solid fa-user-plus"></i> REGISTER</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="~/Home/Login"><i class="fa-solid fa-right-to-bracket"></i> LOGIN</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact section-bg">
+    <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+            <h2>Contact Us</h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-5 d-flex align-items-stretch" data-aos="fade-right">
+                <div class="info">
+                    <div class="address">
+                        <i class="fas fa-location-dot"></i>
+                        <h4>Location:</h4>
+                        <p>Villaflor Village, Novaliches, Quezon City</p>
+                    </div>
+
+                    <div class="email">
+                        <i class="fa-solid fa-envelope"></i>
+                        <h4>Email:</h4>
+                        <p>teamtolentino@gmail.com</p>
+                    </div>
+
+                    <div class="phone">
+                        <i class="fa-solid fa-mobile"></i>
+                        <h4>Call:</h4>
+                        <p>8-366-3198</p>
+                    </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d682.1669585141577!2d121.04007097472069!3d14.71716807214237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b0fb4789271d%3A0x57b41390518e2058!2sGulod%20Barangay%20Hall!5e0!3m2!1sen!2sph!4v1670923992253!5m2!1sen!2sph" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+                </div>
+
+            </div>
+
+            <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-left">
+                <form asp-action="Message" class="php-email-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Your Name</label>
+                            <input type="text" asp-for="first_name" id="first_name" class="form-control" required>
+                        </div>
+                        <div class="form-group col-md-6 mt-3 mt-md-0">
+                            <label for="name">Your Email</label>
+                            <input type="email" asp-for="email_address" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="name">Subject</label>
+                        <input type="text" asp-for="Subject" class="form-control" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="name">Message</label>
+                        <textarea asp-for="Body" class="form-control" rows="10" required></textarea>
+                    </div>
+
+                    <div class="text-center">
+                        <input type="submit" value="Send Message" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- End Contact Section -->
+@{
+    Layout = "_Login-footer";
+}
+
+
+<script>
+
+    $("#first_name").keypress(function (e) {
+        var keyCode = e.keyCode || e.which;
+        $("#Fname").html("");
+        var regex = /^[A-Za-z]+$/;
+        var isValid = regex.test(String.fromCharCode(keyCode));
+        return isValid;
+    });
+
+    var success = "@ViewBag.forgotMsg";
+    $(document).ready(function () {
+        if (success == "success") {
+
+            Swal.fire({
+                title: 'Success!',
+                text: 'You Succesfully Sent the Message!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        }
+
+    });
+
+
+</script>

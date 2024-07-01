@@ -1,0 +1,301 @@
+﻿@model OSSP.Models.users
+<title>Indigency Application</title>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="container" style="background-color: #f7efe2; margin-top:8px;">
+    <div>
+        <a href="~/Resident/" class="fa fa-arrow-left" style="font-size:24px; margin-top:24px; text-decoration:none; color:black;"> Back</a>
+    </div>
+
+    <center>
+        <img src="~/images/sb-logos.png" alt="Alternate Text" width="250px" height="180px">
+        <h4 style="padding-bottom:12px;">BARANGAY CLEARANCE APPLICATION</h4>
+    </center>
+</div>
+
+
+<form action="" method="post" id="formSubmit" enctype="multipart/form-data">
+
+    <div class="container">
+        <h3>Personal Information</h3>
+    </div>
+
+    <div class="border container">
+
+
+        <div class="row" style="margin-top:6px;">
+
+            <div class="col-md-3 ">
+                First Name:
+                <input type="text" name="first_name" class="form-control form-control-sm" value="@Model.first_name" readonly="readonly">
+            </div>
+
+            <div class="col-md-3">
+                Last Name:
+                <input type="text" name="last_name" class="form-control form-control-sm" value="@Model.last_name" readonly="readonly">
+            </div>
+
+            <div class="col-md-3">
+                Middle Name:
+                <input type="text" name="name" class="form-control form-control-sm" value="@Model.middle_name" disabled>
+            </div>
+
+            <div class="col-md-3">
+                Suffix:
+                <input type="text" name="name" class="form-control form-control-sm" value="@Model.suffix" disabled>
+            </div>
+
+        </div>
+        <br />
+    </div>
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-3">
+                Birthdate:
+                <input type="text" name="name" class="form-control form-control-sm" value="@Model.birthdayDesc" disabled>
+            </div>
+
+            <div class="col-md-3" style="">
+                Sex:
+                <input type="text" class="form-control form-control-sm" value="@Model.gender" disabled>
+
+            </div>
+            <div class="col-md-3" style="">
+                Civil Status:
+                <input type="text" class="form-control form-control-sm" value="@Model.civil_status" disabled>
+
+            </div>
+            <div class="col-md-3">
+                Nationality:
+                <input type="text" name="name" class="form-control form-control-sm" value="@Model.nationality" disabled>
+            </div>
+        </div>
+        <br />
+    </div>
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+
+            <div class="col-md-4">
+                Email Address:
+                <input type="email" name="name" class="form-control form-control-sm" value="@Model.email_address" disabled>
+            </div>
+
+            <div class="col-md-4" style="">
+                Phone Number:
+                <input type="text" name="name" class="form-control form-control-sm" value="@Model.phone_number" disabled>
+            </div>
+
+        </div>
+        <br />
+    </div>
+    <div class="container">
+        <br />
+        <h3>Present Address</h3>
+    </div>
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-4">
+                House No.:
+                <input type="text" name="name" class="form-control form-control-sm" value="@Model.house_number" disabled>
+            </div>
+            <div class="col-md-4">
+                Street:
+                <input type="text" name="name" class="form-control form-control-sm" value="@Model.street" disabled>
+            </div>
+
+        </div>
+        <br />
+    </div>
+
+    <div class="container">
+        <br />
+        <h3>Requested Brgy Document:</h3>
+    </div>
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-2">
+                Document Type:
+                <input type="text" id="docu_type" name="docu_type" value="Barangay Clearance" class="form-control form-control-sm" readonly="readonly">
+            </div>
+            <div class="col-md-4">
+                Purpose:
+                <select class="form-control form-control-sm" id="purpose" name="purpose" onchange="me()">
+                    <option value="EDUCATIONAL/ SCHOLARSHIP">EDUCATIONAL/SCHOLARSHIP</option>
+                    <option value="FINANCIAL ASSISTANCE">FINANCIAL ASSISTANCE</option>
+                    <option value="WORK">WORK</option>
+                    <option value="OTHERS">OTHERS</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                If others pls specify here:
+                <input type="text" id="others" name="others" value="" class="form-control form-control-sm" disabled>
+                <p id="othersV" class="text-danger"> </p>
+            </div>
+        </div>
+        <br />
+    </div>
+
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-4">
+                ID:
+                <input type="file" name="id_card" id="id_card" value="" class="form-control form-control-sm" required>
+                <p id="idV" class="text-danger"> </p>
+            </div>
+            <div class="col-md-8">
+                <br />
+                <p class="text-danger">*Upload your Merged Front and Back ID clear and visible address for proof that you are a resident</p>
+            </div>
+
+        </div>
+        <br />
+    </div>
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-4">
+                2x2:
+                <input type="file" name="picture" id="picture" value="" class="form-control form-control-sm">
+                <p id="pictureV" class="text-danger"> </p>
+            </div>
+            <div class="col-md-8">
+                <br />
+                <p class="text-danger">*Your face must be neutral</p>
+            </div>
+
+        </div>
+        <br />
+    </div>
+
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-2">
+                <button type="button" id="verifyBtn" name="name" class="form-control form-control-sm bg-success text-white"><span class="bi bi-check-lg"> </span> Submit</button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</form>
+<script>
+
+
+    $("#purpose").change(function () {
+        if ($(this).val() == "OTHERS") {
+            $("#others").removeAttr("disabled");
+            $("#others").focus();
+        } else {
+            $("#others").attr("disabled", "disabled");
+            $("#others").vals("");
+        }
+    });
+
+    $("#verifyBtn").click(function () {
+        var me = true;
+        var ext = $('#id_card').val().split('.').pop().toLowerCase();
+        var ext2 = $('#picture').val().split('.').pop().toLowerCase();
+        if (!$("#id_card").val()) {
+            me = false;
+            $("#idV").html(" Id is required");
+            $("#id_card").addClass("is-invalid");
+        }
+        else if ($.inArray(ext, ['png', 'jpg', 'jpeg']) == -1) {
+            me = false;
+            $("#idV").html(" Only png, jpg and jpeg must be accepted");
+            $("#id_card").addClass("is-invalid");
+        }
+        else {
+
+            $("#idV").html("");
+            $("#id_card").removeClass("is-invalid");
+        }
+        if ($("#others").val() == "" && $("#purpose").val() =="OTHERS") {
+            me = false;
+            $("#othersV").html(" Pls specify the purpose");
+            $("#others").addClass("is-invalid");
+        }
+        else {
+            $("#othersV").html("");
+            $("#others").removeClass("is-invalid");
+        }
+        if (!$("#picture").val()) {
+            me = false;
+            $("#pictureV").html(" 2x2 Picture is required");
+            $("#picture").addClass("is-invalid");
+        }
+        else if ($.inArray(ext2, ['png', 'jpg', 'jpeg']) == -1) {
+            me = false;
+            $("#pictureV").html(" Only png, jpg and jpeg must be accepted");
+            $("#picture").addClass("is-invalid");
+        }
+        else {
+
+            $("#pictureV").html("");
+            $("#picture").removeClass("is-invalid");
+        }
+
+        if (me) {
+            var fdata = new FormData();
+            var fileInput = $('#id_card')[0];
+            var file = fileInput.files[0];
+            var fileInput2 = $('#picture')[0];
+            var file2 = fileInput2.files[0];
+            fdata.append("id_card", file);
+            fdata.append("picture", file2);
+            $("input").each(function (x, y) {
+                fdata.append($(y).attr("name"), $(y).val());
+            });
+
+            $("select").each(function (x, y) {
+                fdata.append($(y).attr("name"), $(y).val());
+            });
+            Swal.fire({
+                title: 'Are you sure to submit the form?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Submit',
+                confirmButtonColor: '#22bb33',
+                denyButtonText: `Cancel`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Resident/upload3',
+                        method: 'post',
+                        data: fdata,
+                        dataType: 'json',
+                        contentType: false,
+                        processData: false,
+                        mimeType: 'multipart/form-data',
+                        success: function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Form submitted',
+                                showCloseButton: true,
+                            }).then((result) => {
+                                if (result) {
+                                    window.location.href = '/Resident/';
+                                }
+                            });
+
+                        }
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire('The form not save', '', 'info')
+                }
+            })
+        }
+
+
+    });
+
+</script>
+
+

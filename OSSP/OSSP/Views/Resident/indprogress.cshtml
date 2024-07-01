@@ -1,0 +1,230 @@
+﻿@model OSSP.Models.users
+@using Microsoft.AspNetCore.Http
+@{
+    Layout = "";
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Indigency Progress</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="~/css/style.css">
+
+    <!-- Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Boostrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+
+    <style>
+
+       /* .containers {
+        height: 100vh;
+        width: 100%;
+        }*/
+
+        .progress-meter {
+            padding: 0;
+
+        }
+
+        ol.progress-meter {
+            padding-bottom: 9.5px;
+            list-style-type: none;
+        }
+
+            ol.progress-meter li {
+                display: inline-block;
+                text-align: center;
+                text-indent: -19px;
+                height: 36px;
+                width: 24.99%;
+                font-size: 20px;
+                border-bottom-width: 10px;
+                border-bottom-style: solid;
+            }
+
+                ol.progress-meter li:before {
+                    position: relative;
+                    float: left;
+                    text-indent: 0;
+                    left: -webkit-calc(50% - 9.5px);
+                    left: -moz-calc(50% - 9.5px);
+                    left: -ms-calc(50% - 9.5px);
+                    left: -o-calc(50% - 9.5px);
+                    left: calc(50% - 9.5px);
+
+                }
+
+                ol.progress-meter li.done {
+                    font-size: 17px;
+                    margin-top: 40px;
+                }
+
+                    ol.progress-meter li.done:before {
+                        content: "\2713";
+                        height: 19px;
+                        width: 19px;
+                        line-height: 21.85px;
+                        bottom: -21px;
+                        border: none;
+                        border-radius: 19px;
+                    }
+
+                ol.progress-meter li.todo {
+                    font-size: 17px;
+                }
+
+                    ol.progress-meter li.todo:before {
+                        content: "\2B24";
+                        font-size: 23.1px;
+                        bottom: -17px;
+                        line-height: 23.05px;
+                    }
+
+                ol.progress-meter li.done
+                {
+                    color: black;
+                    border-bottom-color: yellowgreen;
+                }
+
+                    ol.progress-meter li.done:before
+                    {
+                        color: white;
+                        background-color: yellowgreen;
+                    }
+
+                ol.progress-meter li.todo {
+                    color: silver;
+                    border-bottom-color: silver;
+                    opacity:0.5;
+                }
+
+                    ol.progress-meter li.todo:before {
+                        color: silver;
+                    }
+
+
+           .icons-box .icons i{
+             font-size: 70px;
+             margin-top:50px;
+             margin-left:40px;
+             color:yellowgreen; 
+           }
+
+
+        /*--------------------------------------------------------------
+        # header
+        --------------------------------------------------------------*/
+
+        .header h2 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            width: 160px;
+            text-align: start;
+            white-space: nowrap;
+            padding-bottom: 13px;
+            padding:100px;
+
+        }
+
+            .header h2:before {
+                background-color: yellowgreen;
+                content: '';
+                display: block;
+                height: 3px;
+                width: 75px;
+                margin-bottom: 5px;
+            }
+
+            .header h2:after {
+                background-color: yellowgreen;
+                content: '';
+                display: block;
+                right: 0;
+                bottom: 0;
+                height: 3px;
+                width: 75px;
+                margin-bottom: 0.25em;
+                margin-left: 350px;
+            }
+
+    </style>
+</head>
+<body>
+
+
+
+    <!-- ======= Navbar Section ======= -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="~/Resident/"><img src="~/images/sb-logos.png" alt="Logo" style="width:70px; height:70px;"> BRGY GULOD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
+                <ul class="navbar-nav">
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <u class="text-uppercase text-decoration-none">@Context.Session.GetString("lname") @Context.Session.GetString("fname") </u><img src="~/images/download.png" width="55px" height="55px" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="~/Resident/Profile/@Context.Session.GetString("resident")">Profile</a></li>
+                            <hr />
+                            <li><a class="dropdown-item" href="~/Logout/resLogout" name="logout">Log Out</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="containers" style="background-color:#d7efe2; bottom:0;">
+
+        <!-- Page Heading -->
+        <div class="header">
+            <h2>
+                <a href="~/Resident/" class="fa fa-arrow-left" style="font-size:24px; text-decoration:none; color:black;"> Back</a><br />
+                Indigency Progress Track:
+            </h2>
+        </div>
+
+        <div class="container mt-5">
+            <ol class="progress-meter">
+                <li class="progress-point" id="submitted"><div class="icons-box"><div class="icons"><i class="fa-solid fa-file-circle-check"><h5>S u b m i t t e d</h5></i></div></div></li><li class="progress-point" id="uReview"><div class="icons-box"><div class="icons"><i class="fa-sharp fa-solid fa-eye"><h5>U n d e r &nbsp;  R e v i e w</h5></i></div></div></li><li class="progress-point" id="released"><div class="icons-box"><div class="icons"><i class="fa-solid fa-hand-holding-hand"><h5>R e l e a s e d</h5></i></div></div></li><li class="progress-point" id="claimed"><div class="icons-box"><div class="icons"><i class="fa-solid fa-handshake"><h5>C l a i m e d</h5></i></div></div></li></ol>
+        </div>
+
+
+        <br />
+        @{
+            Layout = "_Login-footer";
+        }
+    </div>
+    <script>
+
+        if ("@ViewBag.stat" == "Under Review") {
+            $("#submitted").addClass("done");
+            $("#uReview").addClass("done");
+            $("#released").addClass("todo");
+            $("#claimed").addClass("todo");
+        }
+        else if ("@ViewBag.stat" == "Released") {
+            $("#submitted").addClass("done");
+            $("#uReview").addClass("done");
+            $("#released").addClass("done");
+            $("#claimed").addClass("todo");
+        }
+    </script>
+</body>
+</html>

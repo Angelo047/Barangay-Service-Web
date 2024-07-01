@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="icon" href="~/images/sb-logo.png" type="image/svg" sizes="32x32">
+    <style>
+        @@media only screen and (max-width: 700px) and (min-width: 300px) {
+            .fSize {
+                font-size: 10px;
+            }
+
+            h4 {
+                font-size: 13px;
+            }
+
+            .small {
+                width: 50%;
+                float: left;
+            }
+
+            .rem {
+                display: none;
+            }
+        }
+
+        @@media screen and (max-width: 991px) and (min-width: 701px) {
+            .fSize {
+                font-size: 12px;
+            }
+
+            h4 {
+                font-size: 28px;
+            }
+
+            .small {
+                width: 50%;
+                float: left;
+            }
+
+            .rem {
+                display: none;
+            }
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #208454;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+        <footer class="text-start text-light p-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 mb-md-0">
+                        <b>GULOD E-Services</b>
+                        <br>
+                        <br>
+                        <small>
+                            "For any inquiries, please call 366-3198"
+                            <br>
+                        </small>
+                    </div>
+                    <div class="col-lg-4 col-md-2 mb-md-2">
+                        <a href="#" style="cursor: pointer; font-size: 9pt;" class="text-light footer_link">
+                            <b>TERMS OF SERVICE</b>
+                        </a>
+                        &nbsp;|&nbsp;
+                        <a href="#" style="cursor: pointer; font-size: 9pt;" class="text-light footer_link">
+                            <b>PRIVACY POLICY</b>
+                        </a>
+                        <a href="#" style="cursor: pointer; font-size: 9pt;" class="text-success footer_link">
+                            <img src="~/images/Footer Logo.png" class="footer-img mb-lg-auto" alt="" width="100px" height="100px">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,368 @@
+﻿@model OSSP.Models.users
+
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<title>Create new Account</title>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="container" style="background-color: #f7efe2; margin-top:8px;">
+    <div>
+        <a href="~/Home/" class="fa fa-arrow-left" style="font-size:24px; margin-top:24px; text-decoration:none; color:black;"> Back</a>
+    </div>
+    <center>
+        <img src="~/images/sb-logos.png" alt="Alternate Text" width="250px" height="180px">
+        <h4 style="padding-bottom:12px;">CREATE NEW GULOD E-SERVICES ACCOUNT</h4>
+    </center>
+
+</div>
+
+
+<form action="" method="post" id="formSubmit" enctype="multipart/form-data">
+
+    <div class="border container">
+
+
+        <div class="row" style="margin-top:6px;">
+
+            <div class="col-md-3">
+                Last Name:
+                <input type="text" name="last_name" id="last_name" class="form-control form-control-sm" required>
+                <p id="las"></p>
+            </div>
+
+            <div class="col-md-3 ">
+                First Name:
+                <input type="text" name="first_name" id="first_name" class="form-control form-control-sm" required>
+            </div>
+
+            <div class="col-md-3">
+                Middle Name:
+                <input type="text" name="middle_name" id="middle_name" class="form-control form-control-sm">
+            </div>
+
+            <div class="col-md-3">
+                Suffix:
+                <input type="text" name="suffix" id="suffix" class="form-control form-control-sm">
+            </div>
+
+        </div>
+        <br />
+    </div>
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-3">
+                Birthdate:
+                <input type="date" name="birthday" id="birthday" class="form-control form-control-sm" max="2010-01-01" required>
+            </div>
+
+            <div class="col-md-3" style="">
+                Sex:
+                <select class="form-control form-control-sm" name="gender" id="gender" required>
+                    <option></option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="col-md-3" style="">
+                Civil Status:
+                <select class="form-control form-control-sm" name="civil_status" id="civil_status" required>
+                    <option></option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                    <option value="widow">Widow</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                Nationality:
+                <input type="text" name="nationality" id="nationality" class="form-control form-control-sm">
+            </div>
+        </div>
+        <br />
+    </div>
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+
+            <div class="col-md-4">
+                Email Address:
+                <input type="email" name="email_address" id="email_address" class="form-control form-control-sm">
+            </div>
+
+            <div class="col-md-4" style="">
+                Phone Number:
+                <input type="text" name="phone_number" id="phone_number" value="" class="form-control form-control-sm" />
+            </div>
+
+        </div>
+        <br />
+    </div>
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-4">
+                House No.:
+                <input type="text" name="house_number" id="house_number" value="" class="form-control form-control-sm">
+            </div>
+            <div class="col-md-4">
+                Street:
+                <input type="text" name="street" id="street" value="" class="form-control form-control-sm" required>
+            </div>
+
+        </div>
+        <br />
+    </div>
+
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-4">
+                ID:
+                <input type="file" name="id_card" id="id_card" value="" class="form-control form-control-sm" required>
+                
+            </div>
+            <div class="col-md-8">
+                <br />
+                <p class="text-danger">*Upload your Merged Front and Back ID clear and visible address for proof that you are a resident</p>
+            </div>
+
+        </div>
+        <br />
+    </div>
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-4">
+                Password:
+                <input type="password" id="password" name="password" value="" class="form-control form-control-sm" required>
+            </div>
+            <div class="col-md-4">
+                Confirm Password:
+                <input type="password" id="cPassword" name="cPassword" value="" class="form-control form-control-sm" required>
+            </div>
+            <div class="col-md-4">
+                <br />
+                <p class="text-danger" id="passNotMatch"></p>
+            </div>
+        </div>
+        <br />
+    </div>
+
+    <div class="border container">
+        <div class="row" style="margin-top:6px; margin-bottom:6px;">
+            <div class="col-md-4">
+                <button type="button" name="name" id="submitButton" class="form-control form-control-sm bg-success text-white"><span class="bi bi-check-lg"> </span> Register</button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</form>
+<script>
+
+    //Validation For Alphabets Only
+    $(function () {
+       
+        $("#last_name").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+
+            $("#Lname").html("");
+
+            //Regex for Valid Characters i.e. Alphabets.
+            var regex = /^[A-Za-z]+$/;
+
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+
+
+            return isValid;
+        });
+
+        $("#first_name").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+
+            $("#Fname").html("");
+
+            //Regex for Valid Characters i.e. Alphabets.
+            var regex = /^[A-Za-z]+$/;
+
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+            if (!isValid) {
+                $("#Fname").html("Only Alphabets allowed.");
+            }
+
+            return isValid;
+        });
+        $("#middle_name").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+
+            $("#mname").html("");
+
+            //Regex for Valid Characters i.e. Alphabets.
+            var regex = /^[A-Za-z]+$/;
+
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+            if (!isValid) {
+                $("#mname").html("Only Alphabets allowed.");
+            }
+
+            return isValid;
+        });
+        $("#suffix").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+
+            $("#sname").html("");
+
+            //Regex for Valid Characters i.e. Alphabets.
+            var regex = /^[A-Za-z]+$/;
+
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+
+
+            return isValid;
+        });
+        $("#nationality").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+
+            $("#Nation").html("");
+
+            //Regex for Valid Characters i.e. Alphabets.
+            var regex = /^[A-Za-z]+$/;
+
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+            if (!isValid) {
+                $("#Nation").html("Only Alphabets allowed.");
+            }
+
+            return isValid;
+        });
+        $("#phone_number").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+
+            $("#pation").html("");
+
+            //Regex for Valid Characters i.e. Alphabets.
+            var regex = /^[0-9-+]+$/;
+
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+
+            return isValid;
+        });
+    });
+
+    $("#submitButton").click(function () {
+
+        var fdata = new FormData();
+
+        var fileInput = $('#id_card')[0];
+        var file = fileInput.files[0];
+        fdata.append("id_card", file);
+
+
+
+        if ($("#password").val().length < 8) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Your password length must at least 8 characters!',
+                showCloseButton: true,
+            })
+        }
+        else if ($("#password").val() != $("#cPassword").val()) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Your password did not match!',
+                showCloseButton: true,
+            })
+        }
+        else {
+            $("input").each(function (x, y) {
+                fdata.append($(y).attr("name"), $(y).val());
+            });
+
+            $("select").each(function (x, y) {
+                fdata.append($(y).attr("name"), $(y).val());
+            });
+
+            $.ajax({
+                url: '/Home/Register',
+                method: 'post',
+                data: fdata,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                mimeType: 'multipart/form-data',
+                beforeSend: function (data) {
+                    Swal.fire({
+                        title: 'Please Wait...',
+                        timer: 3000,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                    })
+                },
+                success: function (data) {
+                    if (data.sample == "error") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'The gmail you have entered is already used!',
+                            showCloseButton: true,
+                        })
+                    }
+                    if (data.sample == "no gmail") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'No email found! Pls Enter Registered Email',
+                            showCloseButton: true,
+                        })
+                    }
+                    else if (data.data.validationMsg == "Success") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Form Submitted',
+                            showCloseButton: true,
+
+                        }).then((result) => {
+                            if (result) {
+                                window.location.href = '/Home/Verification';
+                            }
+                        });
+                    }
+                    else {
+                        $(".is-invalid").each(function () {
+                            $(this).removeClass("is-invalid");
+                        });
+
+                        $(".invalidSpan").each(function () {
+                            $(this).replaceWith("");
+                        });
+
+                        $.each(data.data, function (i, e) {
+                            if (!$("#" + data.data[i].validationId).hasClass("is-invalid")) {
+                                $("#" + data.data[i].validationId).addClass("is-invalid");
+                                $("#" + data.data[i].validationId).focus();
+                                $("#" + data.data[i].validationId).parent().append('<span class="text-danger invalidSpan">' + data.data[i].validationMsg + '</span>');
+                            }
+                        });
+
+
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
+
+

@@ -1,0 +1,179 @@
+﻿@model OSSP.Models.users
+
+<title>Login</title>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    body {
+        background-image: url('../images/gulodpic.jpg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+
+    .size {
+        font-size: 90px;
+    }
+
+    .pad {
+        padding-top: 100px;
+    }
+
+    @@media only screen and (max-width: 700px) and (min-width: 300px) {
+        h1 {
+            font-size: 25px;
+        }
+
+        h3 {
+            font-size: 15px;
+        }
+
+        .s {
+            font-size: 70px;
+        }
+
+        .small {
+            width: 33.3333333333%;
+            float: left;
+            padding-left: 40px;
+        }
+
+        .pad {
+            padding-top: 1px;
+        }
+
+        .rem {
+            display: none;
+        }
+
+        body {
+            background-image: unset;
+        }
+
+        .conv {
+            margin-left: 12px;
+        }
+    }
+
+    @@media screen and (max-width: 991px) and (min-width: 701px) {
+        h1 {
+            font-size: 30px;
+        }
+
+        h3 {
+            font-size: 20px;
+        }
+
+        .s {
+            font-size: 80px;
+        }
+
+        .small {
+            width: 33.3333333333%;
+            float: left;
+            padding-left: 48px;
+        }
+
+        .pad {
+            padding-top: 8px;
+        }
+
+        .rem {
+            display: none;
+        }
+
+        body {
+            background-image: unset;
+        }
+
+        .conv {
+            margin-left: 4px;
+        }
+    }
+</style>
+<link href="~/css/style.css" rel="stylesheet">
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark"  style="background-color: #208454 ">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src="~/images/sb-logos.png" alt="Logo" style="width:70px; height:70px;"> BRGY PORTAL</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-4 text-white" style="background:rgba(0,0,0, .4); padding:36px; border-radius:24px; margin-top:24px;">
+            <div>
+                <a href="~/Home/" class="fa fa-arrow-left" style="font-size:24px; margin-top:18px; text-decoration:none; color:white;"> Back</a>
+            </div>
+
+            <center>
+                <img src="~/images/sb-logos.png" alt="Alternate Text" width="200px" height="150px">
+            </center><br />
+            <form action="~/Home/VerifyLogin" method="post">
+                E-mail Address:
+                <input type="text" name="email_address" class="form-control form-control-sm" placeholder="Enter E-mail Address" required><br />
+                Password:
+                <input type="password" name="password" class="form-control form-control-sm" placeholder="Enter Password" required>
+                <a href="~/Home/ForgotPassword" style="color:lightskyblue">Forgot Password?</a>
+                <br /><br />
+                <input type="submit" id="loginMsg" value="Sign in" class="border-0 form-control form-control-sm bg-success badge-success" style="margin-top:12px;">
+                <p>Don't have an Account yet?<a href="~/Home/Register" style="color:lightskyblue"> Click here</a></p>
+            </form>
+
+        </div>
+
+        <div class="col-lg-7 container pad">
+            <h1 class="font-weight-normal rem">With GULOD E-Services,<br> You Can Accomplish so much!</h1>
+            <div class="row" style="margin-top:48px;">
+                <div class="col-sm-auto container small">
+
+                    <span id="boot-icon" class="bi bi-shield-fill-check size s" style="color: #28a745; opacity: 1; -webkit-text-stroke-width: 0px; background-color: rgb(242, 242, 242); border: 12.5px solid; border-radius: 23%; padding: 1px;"></span>
+                    <br /><br /><h3 style="margin-left:32px;">Safe</h3>
+                </div>
+
+                <div class="col-sm-auto container small">
+
+                    <span id="boot-icon" class="bi bi-stopwatch-fill size s" style="color: #28a745; opacity: 1; -webkit-text-stroke-width: 0px; background-color: rgb(242, 242, 242); border: 12.5px solid; border-radius: 23%; padding: 1px;"></span>
+                    <br /><br /><h3 style="margin-left:26px;">Quick</h3>
+                </div>
+
+                <div class="col-sm-auto container small">
+
+                    <span id="boot-icon" class="bi bi-check-circle-fill size s" style="color: #28a745; opacity: 1; -webkit-text-stroke-width: 0px; background-color: rgb(242, 242, 242); border: 12.5px solid; border-radius: 23%; padding: 1px;"></span>
+                    <br /><br /><h3 class="conv">Convenient</h3>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    var error = "@ViewBag.loginMsg";
+    $(document).ready(function () {
+        if (error == "error") {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Wrong Username or Password',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+        else if (error == "Under Review") {
+            Swal.fire({
+                text: 'Your Account is under review. We will contact you once your account has been verified.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+</script>
+
+@{
+    Layout = "_Login-footer";
+}

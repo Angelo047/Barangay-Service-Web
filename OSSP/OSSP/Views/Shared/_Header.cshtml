@@ -1,0 +1,331 @@
+﻿@using Microsoft.AspNetCore.Http
+@model List<OSSP.Models.users>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- FontAwsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom styles for this template-->
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet" />
+    <!-- Custom styles for this page -->
+    <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #208454">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="~/Admin/">
+                <div class="sidebar-brand-icon">
+                    Admin No:
+                </div>
+                <div class="sidebar-brand-text mx-3">@Context.Session.GetString("admin")</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="~/Admin/index">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Main
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Accounts</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Account Status:</h6>
+                        <a class="collapse-item" href="~/Admin/accountApp">Application</a>
+                        <a class="collapse-item" href="~/Admin/accountVer">Verified</a>
+                        <a class="collapse-item" href="~/Admin/accountRes">Resubmit</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#clearance"
+                   aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-certificate"></i>
+                    <span>Barangay Clearance</span>
+                </a>
+                <div id="clearance" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Clearance Status:</h6>
+                        <a class="collapse-item" href="~/Admin/clearanceApp">Application</a>
+                        <a class="collapse-item" href="~/Admin/clearanceRel">Released</a>
+                        <a class="collapse-item" href="~/Admin/clearanceClaimed">Claimed</a>
+                        <a class="collapse-item" href="~/Admin/clearanceRes">Resubmission</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#indigency"
+                   aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-paperclip"></i>
+                    <span>Brgy Indigency</span>
+                </a>
+                <div id="indigency" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Indigency Status:</h6>
+                        <a class="collapse-item" href="~/Admin/indigencyApp">Application</a>
+                        <a class="collapse-item" href="~/Admin/indigencyRel">Released</a>
+                        <a class="collapse-item" href="~/Admin/indigencyClaimed">Claimed</a>
+                        <a class="collapse-item" href="~/Admin/indigencyRes">Resubmission</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#id"
+                   aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-id-card"></i>
+                    <span>Brgy ID</span>
+                </a>
+                <div id="id" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">ID Status:</h6>
+                        <a class="collapse-item" href="~/Admin/idApp">Application</a>
+                        <a class="collapse-item" href="~/Admin/idRel">Released</a>
+                        <a class="collapse-item" href="~/Admin/idClaimed">Claimed</a>
+                        <a class="collapse-item" href="~/Admin/idRes">Resubmission</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="~/Admin/AuditTrail">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Audit Trail</span>
+                </a>
+            </li>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Alerts -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" id="alertsDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter" id="notifCount"></span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Notifications
+                                </h6>
+                                <div id="notifContent">
+
+                                </div>
+                                <a class="dropdown-item text-center small text-gray-500" href="/Admin/Notifications">Show All</a>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Messages -->
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@Context.Session.GetString("fname") @Context.Session.GetString("lname")</span>
+                                <img class="img-profile rounded-circle" src="~/images/downloa.jpg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="~/Admin/Profile/@Context.Session.GetString("admin")">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+
+                <!-- Logout Modal-->
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" href="~/Logout/adminLogout" name="logout">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+
+
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+
+                <!-- Footer -->
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+    </div>
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <script>
+        $("#alertsDropdown").click(function () {
+            $.ajax({
+                url: '/Admin/isReadNotif',
+                method: 'GET',
+                dataType: 'json',
+            })
+        })
+
+
+        function getNotif() {
+            $.ajax({
+                url: '/Admin/Notif',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    $("#notifContent").html('');
+                    if (data.notifCount == 0) {
+                        $("#notifCount").html('');
+                    }
+                    else {
+                        $("#notifCount").html(data.notifCount);
+                    }
+                    
+
+                    $.each(data.data, function (i, e) {
+                        var notifHTML = `<a class="dropdown-item d-flex align-items-center" href="` + e.link +`">
+                                        <div class="mr-3">
+                                                <div class="icon-circle `+ e.color +`">
+
+                                                    <i class="fas `+ e.isclass +` text-white"></i>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">`+ e.notif_date +`</div>
+                                            <span class="font-weight-bold">`+ e.notif + ` | ` + e.resident_accountBD +`</span>
+                                        </div>
+                                    </a>`;
+                        $("#notifContent").append(notifHTML);
+                    });
+
+
+                }
+            });
+        }
+        getNotif();
+        $(document).ready(function(){
+            setInterval(function () {
+                getNotif();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
